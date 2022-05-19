@@ -68,8 +68,10 @@ body {
     display: grid;
     width: 400px;
     height: 400px;
-    grid-template: 1fr 1fr 1fr/ 1fr 1fr 1fr;
-    gap: 1.5rem;
+    grid-template: repeat(3, 120px)/ repeat(3, 120px);
+    align-content: center;
+    justify-content: center;
+    gap: .75rem;
 }
 
 .marker-cell {
@@ -79,10 +81,15 @@ body {
     background-color: var(--gameboard-bg-color);
     border-radius: 10px;
     box-sizing: border-box;
+    text-align: center;
+    line-height: 8rem;
+    font-size: 5rem;
+    font-weight: 900;
 }
 
 .marker-cell:hover {
     box-shadow: inset 0px 5px 26px 11px rgba(214, 214, 214, 0.3);
+    cursor: pointer;
 }
 
 button {
@@ -100,6 +107,7 @@ button {
 button:hover {
     background-color: rgb(78, 78, 78);
     border-color: rgb(255, 255, 255);
+    cursor: pointer;
 }
 
 button:active {
