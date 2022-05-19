@@ -1,12 +1,51 @@
 const player = (playerNumber, marker) => {
-    return { playerNumber, marker };
+    let _gameWins = 0;
+
+    const addWin = () => {
+        _gameWins++;
+    }
+
+    const getWins = () => {
+        return _gameWins;
+    }
+
+    return { playerNumber, marker, getWins, addWin };
 }
 
-const gameBoard = (() => {
+const gameState = (() => {
 
     const _player1 = player(1, 'X');
     const _player2 = player(2, 'O');
     let _currentPlayer = _player1;
+
+    const toggleCurrentPlayer = () => {
+
+        if (_currentPlayer === _player1) {
+            _currentPlayer = _player2;
+        } else {
+            _currentPlayer = _player1;
+        }
+    }
+
+    const getCurrentPlayer = () => {
+        return _currentPlayer;
+    }
+
+    const getPlayer = (playerNumberSpecified) => {
+        if (playerNumberSpecified === 1) {
+            return _player1;
+        } else if (playerNumberSpecified === 2) {
+            return _player2;
+        } else {
+            return;
+        }
+    }
+
+    return { toggleCurrentPlayer, getCurrentPlayer, getPlayer };
+
+})();
+
+const gameBoard = (() => {
 
     const _board = [
         [' ', ' ', ' '],
@@ -28,6 +67,22 @@ const gameBoard = (() => {
 
     };
 
+    const addGameMarker = (e) => {
+
+        if (e.target.textContent != '') {
+            return;
+        }
+
+        _addMarkerToDocument(e);
+        console.table(_board);
+        gameState.toggleCurrentPlayer();
+
+    }
+
+    const getBoard = () => {
+        return _board;
+    }
+
     const _markBoard = (player, row, column) => {
         _board[row][column] = player.marker;
     }
@@ -36,34 +91,18 @@ const gameBoard = (() => {
         return _displayBoard[`${cellId}`];
     }
 
-    const getBoard = () => {
-        return _board;
-    }
-
-    const markCell = (e) => {
-
+    const _addMarkerToDocument = (e) => {
         console.log(`Position - [${_getCellPos(e.target.id)[0]}, ${_getCellPos(e.target.id)[1]}]`);
-        e.target.textContent = _currentPlayer.marker;
-        _markBoard(_currentPlayer, _getCellPos(e.target.id)[0], _getCellPos(e.target.id)[1]);
-        console.table(_board);
-
-        if (_currentPlayer === _player1) {
-            _currentPlayer = _player2;
-        } else {
-            _currentPlayer = _player1;
-        }
+        e.target.textContent = gameState.getCurrentPlayer().marker;
+        _markBoard(gameState.getCurrentPlayer(), _getCellPos(e.target.id)[0], _getCellPos(e.target.id)[1]);
     }
 
-    const getCurrentPlayer = () => {
-        return _currentPlayer;
-    }
-
-    return { getBoard, getCurrentPlayer, markCell };
+    return { getBoard, addGameMarker };
 
 })();
 
 
 const boardCells = document.querySelectorAll('.marker-cell');
 for (const cell of boardCells) {
-    cell.addEventListener('click', gameBoard.markCell);
+    cell.addEventListener('click', gameBoard.addGameMarker);
 }
