@@ -18,18 +18,18 @@ const gameBoard = (() => {
 
         'cell-1': [0, 0],
         'cell-2': [0, 1],
-        'cell-3': [0, 3],
+        'cell-3': [0, 2],
         'cell-4': [1, 0],
         'cell-5': [1, 1],
-        'cell-6': [1, 3],
+        'cell-6': [1, 2],
         'cell-7': [2, 0],
         'cell-8': [2, 1],
-        'cell-9': [2, 3]
+        'cell-9': [2, 2]
 
     };
 
     const _markBoard = (player, row, column) => {
-        _board[row][column] = _player.marker;
+        _board[row][column] = player.marker;
     }
 
     const _getCellPos = (cellId) => {
@@ -41,11 +41,11 @@ const gameBoard = (() => {
     }
 
     const markCell = (e) => {
-        // console.log('in markCell');
-        // console.log(`${e.target.id}`);
-        console.log(_getCellPos(e.target.id));
+
+        console.log(`Position - [${_getCellPos(e.target.id)[0]}, ${_getCellPos(e.target.id)[1]}]`);
         e.target.textContent = _currentPlayer.marker;
         _markBoard(_currentPlayer, _getCellPos(e.target.id)[0], _getCellPos(e.target.id)[1]);
+        console.table(_board);
 
         if (_currentPlayer === _player1) {
             _currentPlayer = _player2;
