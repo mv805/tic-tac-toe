@@ -41,6 +41,8 @@ const gameState = (() => {
         return _currentPlayer;
     }
 
+
+
     return { toggleCurrentPlayer, getCurrentPlayer };
 
 })();
@@ -75,6 +77,7 @@ const gameBoard = (() => {
 
         _addMarkerToDocument(e);
         console.table(_board);
+
         gameState.toggleCurrentPlayer();
 
     }
@@ -88,12 +91,60 @@ const gameBoard = (() => {
     }
 
     const _addMarkerToDocument = (e) => {
+
         console.log(`Position - [${_getCellPos(e.target.id)[0]}, ${_getCellPos(e.target.id)[1]}]`);
         e.target.textContent = gameState.getCurrentPlayer().marker;
         _markBoard(_getCellPos(e.target.id)[0], _getCellPos(e.target.id)[1]);
+
     }
 
-    return { addGameMarker };
+    const checkWinStatus = (marker) => {
+
+        let matchCount = 0;
+        //check row wins
+        for (let row = 0; row < _board.length; row++) {
+            for (let col = 0; col < _board[row].length; col++) {
+                if (_board[row][col] === marker) {
+                    matchCount++;
+                }
+            }
+            if (matchCount === 3) {
+                return true;
+            } else {
+                matchCount = 0;
+            }
+        }
+        //check col wins
+        for (let col = 0; col < _board[0].length; col++) {
+            for (let row = 0; row < _board.length; row++) {
+                if (_board[row][col] === marker) {
+                    matchCount++;
+                }
+            }
+            if (matchCount === 3) {
+                return true;
+            } else {
+                matchCount = 0;
+            }
+        }
+
+        //check diagonal wins
+        if (_board[0][0] === marker &&
+            _board[1][1] === marker &&
+            _board[2][2] === marker) {
+            return true;
+        }
+
+        if (_board[0][2] === marker &&
+            _board[1][1] === marker &&
+            _board[2][0] === marker) {
+            return true;
+        }
+
+        return false;
+    }
+
+    return { addGameMarker, checkWinStatus };
 
 })();
 
