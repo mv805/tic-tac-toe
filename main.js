@@ -53,7 +53,7 @@ const gameState = (() => {
             player2Indicator.classList.remove('player-indicator-active');
             player1Indicator.classList.add('player-indicator-active');
         }
-        statusBar.textContent = `Player ${_currentPlayer.playerNumber} (${_currentPlayer.marker}'s) take your turn`;
+        statusBar.textContent = `${_currentPlayer.marker}'s take your turn`;
     }
 
     const getCurrentPlayer = () => {
@@ -65,7 +65,7 @@ const gameState = (() => {
         player2Indicator.classList.remove('player-indicator-active');
         player1Indicator.classList.remove('player-indicator-active');
         player1Indicator.classList.add('player-indicator-active');
-        statusIndicator.textContent = 'Player 1 (X\'s) take your turn';
+        statusIndicator.textContent = 'X\'s take your turn';
         gameBoard.resetBoard();
         for (const cell of boardCells) {
             cell.addEventListener('click', gameLoop);

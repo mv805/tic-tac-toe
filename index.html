@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;400;700&display=swap"
-            rel="stylesheet">
-        <script src="main.js" defer></script>
-        <title>Tic Tac Toe</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;400;700&display=swap" rel="stylesheet">
+    <script src="main.js" defer></script>
+    <title>Tic Tac Toe</title>
+</head>
 
-    <body>
-        <div class="game-area">
-            <div class="player-status-display">
-                <div class="player-indicator player-indicator-active" id="player-1-indicator">Player 1
-                </div>
-                <div class="player-indicator" id="player-2-indicator">Player 2</div>
+<body>
+    <div class="game-area">
+        <div class="player-status-display">
+            <div class="player-indicator player-indicator-active" id="player-1-indicator">Player 1
             </div>
-            <div class="game-current-status">Player 1 (X's) take your turn</div>
-            <div class="win-counter">
-                <div>
-                    <div class="score-title">Player 1 Wins:</div>
-                    <div class="scores" id="player-1-wins">0</div>
-                </div>
-                <div>
-                    <div class="score-title">Ties:</div>
-                    <div class="scores" id="ties">0</div>
-                </div>
-                <div>
-                    <div class="score-title">Player 2 Wins:</div>
-                    <div class="scores" id="player-2-wins">0</div>
-                </div>
-            </div>
-            <div class="game-board">
-                <div class="marker-cell" id="cell-1"></div>
-                <div class="marker-cell" id="cell-2"></div>
-                <div class="marker-cell" id="cell-3"></div>
-                <div class="marker-cell" id="cell-4"></div>
-                <div class="marker-cell" id="cell-5"></div>
-                <div class="marker-cell" id="cell-6"></div>
-                <div class="marker-cell" id="cell-7"></div>
-                <div class="marker-cell" id="cell-8"></div>
-                <div class="marker-cell" id="cell-9"></div>
-            </div>
-            <button>Reset</button>
+            <div class="player-indicator" id="player-2-indicator">Player 2</div>
         </div>
-        <footer>Made By Matt Villa</footer>
-    </body>
+        <div class="game-current-status">X's take your turn</div>
+        <div class="win-counter">
+            <div>
+                <div class="score-title">Player 1 Wins:</div>
+                <div class="scores" id="player-1-wins">0</div>
+            </div>
+            <div>
+                <div class="score-title">Ties:</div>
+                <div class="scores" id="ties">0</div>
+            </div>
+            <div>
+                <div class="score-title">Player 2 Wins:</div>
+                <div class="scores" id="player-2-wins">0</div>
+            </div>
+        </div>
+        <div class="game-board">
+            <div class="marker-cell" id="cell-1"></div>
+            <div class="marker-cell" id="cell-2"></div>
+            <div class="marker-cell" id="cell-3"></div>
+            <div class="marker-cell" id="cell-4"></div>
+            <div class="marker-cell" id="cell-5"></div>
+            <div class="marker-cell" id="cell-6"></div>
+            <div class="marker-cell" id="cell-7"></div>
+            <div class="marker-cell" id="cell-8"></div>
+            <div class="marker-cell" id="cell-9"></div>
+        </div>
+        <button>Reset</button>
+    </div>
+    <footer>Made By Matt Villa</footer>
+</body>
 
 </html>
