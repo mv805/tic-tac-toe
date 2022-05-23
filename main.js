@@ -20,9 +20,28 @@ const gameState = (() => {
     const player1Indicator = document.querySelector('#player-1-indicator');
     const player2Indicator = document.querySelector('#player-2-indicator');
     const statusBar = document.querySelector('.game-current-status');
+    let _markerCount = 0;
+    let _ties = 0;
 
     let _currentPlayer = _player1;
+    const getTies = () => {
+        return _ties;
+    }
 
+    const addTie = () => {
+        _ties++;
+    }
+    const addMarkerCount = () => {
+        _markerCount++;
+    }
+
+    const resetMarkerCount = () => {
+        _markerCount = 0;
+    }
+
+    const getTieStatus = () => {
+        return (_markerCount === 9 ? true : false);
+    }
     const toggleCurrentPlayer = () => {
 
         if (_currentPlayer === _player1) {
@@ -54,7 +73,7 @@ const gameState = (() => {
         }
     }
 
-    return { toggleCurrentPlayer, getCurrentPlayer, resetGame };
+    return { toggleCurrentPlayer, getCurrentPlayer, resetGame, addMarkerCount, getTieStatus, resetMarkerCount, addTie, getTies };
 
 })();
 
@@ -169,20 +188,40 @@ function gameLoop(e) {
     if (e.target.textContent != '') {
         return;
     }
-
+    gameState.addMarkerCount();
     gameBoard.addMarkerToDocument(e);
     console.table(gameBoard.getBoard());
 
     if (gameBoard.checkWinStatus(gameState.getCurrentPlayer().marker)) {
-        console.log('game was won');
-        gameState.getCurrentPlayer().addWin();
-        document.querySelector(`#player-${gameState.getCurrentPlayer().playerNumber}-wins`).textContent = gameState.getCurrentPlayer().getWins();
-        removeCellClickEvents();
-        statusIndicator.textContent = `Player ${gameState.getCurrentPlayer().playerNumber} is the winner! (Total Wins: ${gameState.getCurrentPlayer().getWins()})`;
-        document.querySelector(`#player-${gameState.getCurrentPlayer().playerNumber}-indicator`).classList.remove('player-indicator-active');
-    } else {
+        recordWin();
+        endGameCleanup();
+    }
+    else if (!gameBoard.checkWinStatus(gameState.getCurrentPlayer().marker) && gameState.getTieStatus()) {
+        recordTie();
+        endGameCleanup();
+    }
+    else {
         gameState.toggleCurrentPlayer();
     }
+}
+function recordWin() {
+    console.log('game was won');
+    gameState.getCurrentPlayer().addWin();
+    document.querySelector(`#player-${gameState.getCurrentPlayer().playerNumber}-wins`).textContent = gameState.getCurrentPlayer().getWins();
+    statusIndicator.textContent = `Player ${gameState.getCurrentPlayer().playerNumber} is the winner!`;
+    gameState.resetMarkerCount();
+}
+function endGameCleanup() {
+    removeCellClickEvents();
+    document.querySelector(`#player-${gameState.getCurrentPlayer().playerNumber}-indicator`).classList.remove('player-indicator-active');
+}
+
+function recordTie() {
+    console.log('game tied');
+    gameState.addTie();
+    document.querySelector('#ties').textContent = gameState.getTies();
+    gameState.resetMarkerCount();
+    statusIndicator.textContent = 'Game Tied!';
 }
 
 const boardCells = document.querySelectorAll('.marker-cell');
