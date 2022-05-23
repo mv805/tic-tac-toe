@@ -17,8 +17,8 @@ const gameState = (() => {
 
     const _player1 = player(1, 'X');
     const _player2 = player(2, 'O');
-    const player1Indicator = document.querySelector('#player-1');
-    const player2Indicator = document.querySelector('#player-2');
+    const player1Indicator = document.querySelector('#player-1-indicator');
+    const player2Indicator = document.querySelector('#player-2-indicator');
     const statusBar = document.querySelector('.game-current-status');
 
     let _currentPlayer = _player1;
@@ -179,6 +179,7 @@ function gameLoop(e) {
         document.querySelector(`#player-${gameState.getCurrentPlayer().playerNumber}-wins`).textContent = gameState.getCurrentPlayer().getWins();
         removeCellClickEvents();
         statusIndicator.textContent = `Player ${gameState.getCurrentPlayer().playerNumber} is the winner! (Total Wins: ${gameState.getCurrentPlayer().getWins()})`;
+        document.querySelector(`#player-${gameState.getCurrentPlayer().playerNumber}-indicator`).classList.remove('player-indicator-active');
     } else {
         gameState.toggleCurrentPlayer();
     }
