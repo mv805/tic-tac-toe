@@ -176,6 +176,7 @@ function gameLoop(e) {
     if (gameBoard.checkWinStatus(gameState.getCurrentPlayer().marker)) {
         console.log('game was won');
         gameState.getCurrentPlayer().addWin();
+        document.querySelector(`#player-${gameState.getCurrentPlayer().playerNumber}-wins`).textContent = gameState.getCurrentPlayer().getWins();
         removeCellClickEvents();
         statusIndicator.textContent = `Player ${gameState.getCurrentPlayer().playerNumber} is the winner! (Total Wins: ${gameState.getCurrentPlayer().getWins()})`;
     } else {
@@ -191,4 +192,5 @@ for (const cell of boardCells) {
 const statusIndicator = document.querySelector('.game-current-status');
 const resetButton = document.querySelector('button');
 resetButton.addEventListener('click', gameState.resetGame);
+
 
